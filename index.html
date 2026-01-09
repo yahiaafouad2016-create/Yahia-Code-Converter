@@ -86,6 +86,8 @@ button:hover {
   animation: sparkle 0.5s ease-in-out;
 }
 
+<button id="copyBtn">Copy Yahia-Code</button>
+
 </style>
 </head>
 <body>
@@ -93,7 +95,7 @@ button:hover {
 
 <input type="text" id="normalText" placeholder="Type normal text here..." />
 <textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
-
+<button id="copyBtn">Copy Yahia-Code</button>
 
 <script>
 const codeMap = {
@@ -117,6 +119,15 @@ normalInput.addEventListener('input', () => {
   void secretOutput.offsetWidth; // trigger reflow
   secretOutput.classList.add('sparkle');
 });
+// Copy to clipboard
+const copyBtn = document.getElementById('copyBtn');
+copyBtn.addEventListener('click', () => {
+  secretOutput.select();
+  secretOutput.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(secretOutput.value);
+  alert('Copied to clipboard! ✨');
+});
+
 </script>
 
 </body>
