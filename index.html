@@ -7,6 +7,72 @@
   body { font-family: Arial; background: linear-gradient(135deg, #0a58ff, #00bfff); color: #eaf2ff; padding: 30px; }
   input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; }
   h2 { color: #fff; }
+  body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #d8b8ff, #f8d6ff); /* light purple & pink */
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 2.2em;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  color: #4b0082;
+}
+
+.container {
+  background: rgba(255,255,255,0.3);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 100%;
+  backdrop-filter: blur(8px);
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1em;
+  outline: none;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+  height: 120px;
+  background: rgba(255,255,255,0.2);
+}
+
+button {
+  background: linear-gradient(135deg, #a259ff, #ff96f1);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+/* Optional: make output text area stand out */
+#output {
+  background: rgba(255,255,255,0.25);
+  color: #2c003e;
+  font-weight: bold;
+}
+
 </style>
 </head>
 <body>
@@ -34,6 +100,18 @@ normalInput.addEventListener('input', () => {
   }
   secretOutput.value = converted;
 });
+
+const input = document.getElementById('inputText');
+const output = document.getElementById('output');
+const btn = document.getElementById('convertBtn');
+
+btn.addEventListener('click', () => {
+  const text = input.value;
+  // simple example: reverse text as "Yahia code"
+  const converted = text.split('').reverse().join('');
+  output.value = converted;
+});
+
 </script>
 </body>
 </html>
