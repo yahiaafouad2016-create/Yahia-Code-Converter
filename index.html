@@ -74,6 +74,18 @@ button:hover {
   font-weight: bold;
 }
 
+@keyframes sparkle {
+  0% { text-shadow: 0 0 2px #fff, 0 0 5px #00bfff; }
+  25% { text-shadow: 0 0 4px #fff, 0 0 10px #1e90ff; }
+  50% { text-shadow: 0 0 2px #fff, 0 0 5px #00bfff; }
+  75% { text-shadow: 0 0 6px #fff, 0 0 12px #1e90ff; }
+  100% { text-shadow: 0 0 2px #fff, 0 0 5px #00bfff; }
+}
+
+.sparkle {
+  animation: sparkle 0.5s ease-in-out;
+}
+
 </style>
 </head>
 <body>
@@ -88,8 +100,6 @@ const codeMap = {
   A:'Q',B:'W',C:'E',D:'R',E:'T',F:'Y',G:'U',H:'I',I:'O',J:'P',K:'A',L:'S',M:'D',N:'F',O:'G',P:'H',Q:'J',R:'K',S:'L',T:'Z',U:'X',V:'C',W:'V',X:'B',Y:'N',Z:'M'
 };
 
-const reverseMap = Object.fromEntries(Object.entries(codeMap).map(([k,v]) => [v,k]));
-
 const normalInput = document.getElementById('normalText');
 const secretOutput = document.getElementById('secretText');
 
@@ -101,23 +111,14 @@ normalInput.addEventListener('input', () => {
     else converted += char; // keep spaces & punctuation
   }
   secretOutput.value = converted;
+
+  // Sparkle effect
+  secretOutput.classList.remove('sparkle');
+  void secretOutput.offsetWidth; // trigger reflow
+  secretOutput.classList.add('sparkle');
 });
-
-const input = document.getElementById('inputText');
-const output = document.getElementById('output');
-const btn = document.getElementById('convertBtn');
-
-btn.addEventListener('click', () => {
-  const text = input.value;
-  // simple example: reverse text as "Yahia code"
-  const converted = text.split('').reverse().join('');
-  output.value = converted;
-});
-
-const input = document.getElementById('inputText');
-const output = document.getElementById('output');
-
 </script>
+
 </body>
 </html>
 
