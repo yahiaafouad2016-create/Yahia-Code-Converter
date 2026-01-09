@@ -4,36 +4,44 @@
 <meta charset="UTF-8">
 <title>Yahia-Code Converter</title>
 <style>
-  body { font-family: Arial; background: #0a58ff; color: #eaf2ff; padding: 30px; }
-  input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; }
-  h2 { color: #fff; }
-</style>
-</head>
-<body>
-<h2>Yahia-Code Converter 🔐</h2>
-
-<input type="text" id="normalText" placeholder="Type normal text here..." />
-<textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
-
-<script>
-const codeMap = {
-  A:'Q',B:'W',C:'E',D:'R',E:'T',F:'Y',G:'U',H:'I',I:'O',J:'P',K:'A',L:'S',M:'D',N:'F',O:'G',P:'H',Q:'J',R:'K',S:'L',T:'Z',U:'X',V:'C',W:'V',X:'B',Y:'N',Z:'M'
-};
-
-const reverseMap = Object.fromEntries(Object.entries(codeMap).map(([k,v]) => [v,k]));
-
-const normalInput = document.getElementById('normalText');
-const secretOutput = document.getElementById('secretText');
-
-normalInput.addEventListener('input', () => {
-  let text = normalInput.value.toUpperCase();
-  let converted = '';
-  for(let char of text){
-    if(codeMap[char]) converted += codeMap[char];
-    else converted += char; // keep spaces & punctuation
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a58ff, #00bfff);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
   }
-  secretOutput.value = converted;
-});
-</script>
-</body>
-</html>
+
+  h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+  }
+
+  .container {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    max-width: 600px;
+    width: 100%;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.1em;
+    outline: none;
+  }
+
+  textarea {
+    resize: none;
+    height: 120px;
+    background: rgba(255,255,255,0.1);
