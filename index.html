@@ -6,8 +6,8 @@
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a58ff, #00bfff);
-    color: #fff;
+     background: linear-gradient(135deg, #0a58ff, #00bfff);
+    color: #3b0a5f; /* dark text for visibility */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,14 +19,14 @@
   h1 {
     font-size: 2.2em;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   }
 
   .container {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.1);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     max-width: 600px;
     width: 100%;
   }
@@ -39,9 +39,59 @@
     border: none;
     font-size: 1.1em;
     outline: none;
+    background: rgba(255,255,255,0.2);
+    color: #3b0a5f;
   }
 
   textarea {
     resize: none;
     height: 120px;
-    background: rgba(255,255,255,0.1);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: #3b0a5f;
+    opacity: 0.7;
+  }
+
+  button {
+    padding: 12px 25px;
+    background: #fff;
+    color: #d8b4f7;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    background: #f0f0f0;
+  }
+
+  footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: rgba(59,10,95,0.7);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>🔐 Yahia-Code Converter</h1>
+
+<div class="container">
+  <input type="text" id="normalText" placeholder="Type normal text here...">
+  <textarea id="secretText" placeholder="Laila-Code appears here..." readonly></textarea>
+  <button id="copyBtn">Copy to Clipboard</button>
+</div>
+
+<footer>Secret language for Laila 💖</footer>
+
+<script>
+const codeMap = {
+  A:'M',B:'N',C:'B',D:'V',E:'C',F:'X',G:'Z',H:'L',I:'K',J:'J',K:'H',L:'G',M:'F',N:'D',O:'S',P:'A',Q:'Q',R:'W
+
