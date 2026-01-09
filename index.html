@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yahia-Code Converter</title>
+<style>
+  body { font-family: Arial; background: #0a58ff; color: #eaf2ff; padding: 30px; }
+  input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; }
+  h2 { color: #fff; }
+</style>
+</head>
+<body>
+<h2>Yahia-Code Converter 🔐</h2>
+
+<input type="text" id="normalText" placeholder="Type normal text here..." />
+<textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
+
+<script>
+const codeMap = {
+  A:'Q',B:'W',C:'E',D:'R',E:'T',F:'Y',G:'U',H:'I',I:'O',J:'P',K:'A',L:'S',M:'D',N:'F',O:'G',P:'H',Q:'J',R:'K',S:'L',T:'Z',U:'X',V:'C',W:'V',X:'B',Y:'N',Z:'M'
+};
+
+const reverseMap = Object.fromEntries(Object.entries(codeMap).map(([k,v]) => [v,k]));
+
+const normalInput = document.getElementById('normalText');
+const secretOutput = document.getElementById('secretText');
+
+normalInput.addEventListener('input', () => {
+  let text = normalInput.value.toUpperCase();
+  let converted = '';
+  for(let char of text){
+    if(codeMap[char]) converted += codeMap[char];
+    else converted += char; // keep spaces & punctuation
+  }
+  secretOutput.value = converted;
+});
+</script>
+</body>
+</html>
