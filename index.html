@@ -7,10 +7,10 @@
   body { font-family: Arial; background: linear-gradient(135deg, #0a58ff, #00bfff); color: #eaf2ff; padding: 30px; }
   input, textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 8px; }
   h2 { color: #fff; }
-  body {
+body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #d8b8ff, #f8d6ff); /* light purple & pink */
-  color: #333;
+  background: linear-gradient(135deg, #0a58ff, #00bfff); /* blue → light blue */
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,18 +22,18 @@
 h1 {
   font-size: 2.2em;
   margin-bottom: 25px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  color: #4b0082;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  color: #e0f7ff;
 }
 
 .container {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   max-width: 600px;
   width: 100%;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(5px);
 }
 
 input, textarea, button {
@@ -50,11 +50,13 @@ input, textarea, button {
 textarea {
   resize: none;
   height: 120px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
+  color: #001f4d;
+  font-weight: bold;
 }
 
 button {
-  background: linear-gradient(135deg, #a259ff, #ff96f1);
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -66,10 +68,9 @@ button:hover {
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
 
-/* Optional: make output text area stand out */
 #output {
-  background: rgba(255,255,255,0.25);
-  color: #2c003e;
+  background: rgba(255,255,255,0.2);
+  color: #001f4d;
   font-weight: bold;
 }
 
