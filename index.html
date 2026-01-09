@@ -128,7 +128,14 @@ copyBtn.addEventListener('click', () => {
   alert('Copied to clipboard! ✨');
 });
 
+const sound = document.getElementById("typeSound");
+normalInput.addEventListener("input", () => {
+  sound.currentTime = 0;
+  sound.play();
+});
+
 </script>
+<audio id="typeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
 
 </body>
 </html>
