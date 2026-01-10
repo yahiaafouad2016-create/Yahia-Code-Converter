@@ -189,27 +189,21 @@ const reverseMap = Object.fromEntries(
   Object.entries(codeMap).map(([k, v]) => [v, k])
 );
 
-const swapBtn = document.getElementById("swapBtn");
-
-swapBtn.addEventListener("click", () => {
-  // Swap the values
-  const normal = normalInput.value;
-  const secret = secretOutput.value;
-
-  normalInput.value = secret;
-  secretOutput.value = normal;
-
-  // Decode what is now in the normal box
-  let decoded = "";
-  let text = normalInput.value.toUpperCase();
+secretOutput.addEventListener('input', () => {
+  let text = secretOutput.value.toUpperCase();
+  let decoded = '';
 
   for (let char of text) {
     if (reverseMap[char]) decoded += reverseMap[char];
     else decoded += char;
   }
 
-  secretOutput.value = decoded;
+  normalInput.value = decoded;
 });
+
+const reverseMap = Object.fromEntries(
+  Object.entries(codeMap).map(([k, v]) => [v, k])
+);
 
 </script>
 <audio id="typeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
