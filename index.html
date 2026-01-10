@@ -107,6 +107,12 @@ body {
 <input type="text" id="normalText" placeholder="Type normal text here..." />
 <textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
 <button id="copyBtn">Copy Yahia-Code</button>
+<div style="margin-top:20px;">
+  <button onclick="saveNote()">💾 Save Secret</button>
+  <button onclick="loadNotes()">📂 Load Secrets</button>
+</div>
+
+<select id="savedNotes" style="width:100%; margin-top:15px; padding:10px; border-radius:10px;"></select>
 
 <script>
 const codeMap = {
@@ -143,6 +149,36 @@ const sound = document.getElementById("typeSound");
 normalInput.addEventListener("input", () => {
   sound.currentTime = 0;
   sound.play();
+});
+
+function saveNote() {
+  const text = secretOutput.value;
+  if (!text) {
+    alert("Nothing to save!");
+    return;
+  }
+
+  let notes = JSON.parse(localStorage.getItem("yahiaNotes")) || [];
+  notes.push(text);
+  localStorage.setItem("yahiaNotes", JSON.stringify(notes));
+  alert("Secret saved!");
+}
+
+function loadNotes() {
+  let notes = JSON.parse(localStorage.getItem("yahiaNotes")) || [];
+  const list = document.getElementById("savedNotes");
+  list.innerHTML = "";
+
+  notes.forEach((note, index) => {
+    const option = document.createElement("option");
+    option.value = note;
+    option.textContent = "Secret " + (index + 1);
+    list.appendChild(option);
+  });
+}
+
+document.getElementById("savedNotes").addEventListener("change", function(){
+  secretOutput.value = this.value;
 });
 
 </script>
