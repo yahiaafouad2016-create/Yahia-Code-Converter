@@ -104,6 +104,8 @@ body {
 <body>
 <h2>Yahia-Code Converter 🔐</h2>
 
+<div id="rankDisplay" style="margin-bottom:15px;font-weight:bold;"></div>
+
 <input type="text" id="normalText" placeholder="Type normal text here..." />
 <textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
 <button id="copyBtn">Copy Yahia-Code</button>
@@ -112,7 +114,13 @@ body {
   <button onclick="loadNotes()"> Load Secrets</button>
 </div>
 <button id="decodeBtn"> Decode</button>
-
+<div class="container" style="margin-top:20px;">
+  <h3>🎮 Crack the Yahia-Code</h3>
+  <div id="gameSecret" style="font-size:20px;margin:10px 0;"></div>
+  <input id="gameInput" placeholder="Type the decoded message..." />
+  <button onclick="checkGame()">Check</button>
+  <div id="gameResult"></div>
+</div>
 <select id="savedNotes" style="width:100%; margin-top:15px; padding:10px; border-radius:10px;"></select>
 
 <script>
@@ -208,8 +216,88 @@ decodeBtn.addEventListener("click", () => {
   secretOutput.value = decoded;
 });
 
+let xp = Number(localStorage.getItem("yahiaXP")) || 0;
+let level = Number(localStorage.getItem("yahiaLevel")) || 1;
+
+function updateRank() {
+  if (xp >= level * 10) {
+    xp = 0;
+    level++;
+    alert("🎉 Level up! You are now Level " + level);
+  }
+  localStorage.setItem("yahiaXP", xp);
+  localStorage.setItem("yahiaLevel", level);
+  document.getElementById("rankDisplay").innerText = "🏆 Level " + level + " | XP: " + xp + "/" + (level*10);
+}
+
+normalInput.addEventListener("input", () => {
+  xp++;
+  updateRank();
+});
+
+secretOutput.addEventListener("input", () => {
+  xp++;
+  updateRank();
+});
+
+// ===== Yahia-Code Game =====
+const gameMessages = [
+  "HELLO",
+  "I LIKE BLUE",
+  "YAHIA IS COOL",
+  "I NEED TO GO",
+  "SECRET MESSAGE"
+];
+
+let currentGameAnswer = "";
+
+function newGame() {
+  const msg = gameMessages[Math.floor(Math.random() * gameMessages.length)];
+  currentGameAnswer = msg;
+
+  // Convert to Yahia-Code
+  let encoded = "";
+  for (let char of msg) {
+    if (codeMap[char]) encoded += codeMap[char];
+    else encoded += char;
+  }
+
+  document.getElementById("gameSecret").textContent = encoded;
+}
+
+function checkGame() {
+  const user = document.getElementById("gameInput").value.toUpperCase().trim();
+  const result = document.getElementById("gameResult");
+
+  if (user === currentGameAnswer) {
+    result.textContent = "✅ Correct!";
+    result.style.color = "#aaffff";
+    newGame(); // load next one
+  } else {
+    result.textContent = "❌ Try again";
+    result.style.color = "#ffcccc";
+  }
+}
+
+// Start the first puzzle
+newGame();
+
+const decodeSound = document.getElementById("decodeSound");
+
+// play sound when correct
+const oldCheckGame = checkGame;
+checkGame = function () {
+  oldCheckGame();
+
+  const result = document.getElementById("gameResult");
+  if (result.textContent.includes("Correct")) {
+    decodeSound.currentTime = 0;
+    decodeSound.play();
+  }
+};
+
 </script>
-<audio id="typeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
+<audio id="decodeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
 
 </body>
 </html>
