@@ -107,6 +107,9 @@ body {
 <div id="rankDisplay" style="margin-bottom:15px;font-weight:bold;"></div>
 
 <input type="text" id="normalText" placeholder="Type normal text here..." />
+
+<h3 id="levelDisplay">Level 1</h3>
+
 <textarea id="secretText" placeholder="Yahia-Code appears here..." rows="4"></textarea>
 <button id="copyBtn">Copy Yahia-Code</button>
 <div style="margin-top:20px;">
@@ -127,6 +130,57 @@ body {
 const codeMap = {
   A:'Q',B:'W',C:'E',D:'R',E:'T',F:'Y',G:'U',H:'I',I:'O',J:'P',K:'A',L:'S',M:'D',N:'F',O:'G',P:'H',Q:'J',R:'K',S:'L',T:'Z',U:'X',V:'C',W:'V',X:'B',Y:'N',Z:'M'
 };
+
+const levelMessages = [];
+
+const easyWords = [
+  "HI", "YOU", "ME", "CAT", "DOG", "SUN", "FUN", "GAME", "CODE", "BLUE"
+];
+
+const mediumWords = [
+  "HELLO", "FRIEND", "SECRET", "LIGHT", "MAGIC", "PLAYER", "PUZZLE", "HACKER"
+];
+
+const hardSentences = [
+  "I LOVE GAMES",
+  "THIS IS A SECRET",
+  "YAHIA IS AWESOME",
+  "DECODE THIS MESSAGE",
+  "YOU FOUND THE CODE",
+  "WELCOME TO YAHIA CODE",
+  "CRACK THE SECRET",
+  "LEVEL UP NOW"
+];
+
+// Create 150 levels
+for (let i = 1; i <= 150; i++) {
+  let text;
+
+  if (i <= 50) {
+    text = easyWords[Math.floor(Math.random() * easyWords.length)];
+  } else if (i <= 100) {
+    text = mediumWords[Math.floor(Math.random() * mediumWords.length)];
+  } else {
+    text = hardSentences[Math.floor(Math.random() * hardSentences.length)];
+  }
+
+  levelMessages.push(text);
+}
+
+function encode(text) {
+  return text.toUpperCase().split("").map(c => codeMap[c] || c).join("");
+}
+
+const encodedLevels = levelMessages.map(encode);
+
+let currentLevel = 0;
+
+function loadLevel() {
+  document.getElementById("secretText").value = encodedLevels[currentLevel];
+  document.getElementById("levelDisplay").textContent = "Level " + (currentLevel + 1);
+}
+
+loadLevel();
 
 const normalInput = document.getElementById('normalText');
 const secretOutput = document.getElementById('secretText');
@@ -295,6 +349,13 @@ checkGame = function () {
     decodeSound.play();
   }
 };
+
+function resetInputs() {
+    normalInput.value = '';
+    secretOutput.value = '';
+}
+document.getElementById('nextLevel').addEventListener('click', resetInputs);
+document.getElementById('prevLevel').addEventListener('click', resetInputs);
 
 </script>
 <audio id="decodeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
