@@ -111,6 +111,7 @@ body {
   <button onclick="saveNote()">💾 Save Secret</button>
   <button onclick="loadNotes()">📂 Load Secrets</button>
 </div>
+<button id="decodeBtn">🔁 Decode</button>
 
 <select id="savedNotes" style="width:100%; margin-top:15px; padding:10px; border-radius:10px;"></select>
 
@@ -182,6 +183,30 @@ document.getElementById("savedNotes").addEventListener("change", function(){
 });
 
 loadNotes();
+
+const reverseMap = Object.fromEntries(
+  Object.entries(codeMap).map(([k, v]) => [v, k])
+);
+
+const decodeBtn = document.getElementById("decodeBtn");
+
+decodeBtn.addEventListener("click", () => {
+  // Step 1: Swap text
+  const temp = normalInput.value;
+  normalInput.value = secretOutput.value;
+  secretOutput.value = temp;
+
+  // Step 2: Decode Yahia → Normal
+  let text = normalInput.value.toUpperCase();
+  let decoded = "";
+
+  for (let char of text) {
+    if (reverseMap[char]) decoded += reverseMap[char];
+    else decoded += char;
+  }
+
+  secretOutput.value = decoded;
+});
 
 </script>
 <audio id="typeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
