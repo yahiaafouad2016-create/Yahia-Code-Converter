@@ -357,6 +357,36 @@ function resetInputs() {
 document.getElementById('nextLevel').addEventListener('click', resetInputs);
 document.getElementById('prevLevel').addEventListener('click', resetInputs);
 
+let currentLevel = 1;
+const maxLevel = 150; // total number of levels
+const levelDisplay = document.getElementById('levelDisplay');
+
+function updateLevelDisplay() {
+    levelDisplay.textContent = `Level ${currentLevel}`;
+}
+updateLevelDisplay();
+
+document.getElementById('nextLevel').addEventListener('click', () => {
+    if(currentLevel < maxLevel) {
+        currentLevel++;
+        updateLevelDisplay();
+    }
+});
+
+document.getElementById('prevLevel').addEventListener('click', () => {
+    if(currentLevel > 1) {
+        currentLevel--;
+        updateLevelDisplay();
+    }
+});
+
+function resetInputs() {
+    normalInput.value = '';
+    secretOutput.value = '';
+}
+document.getElementById('nextLevel').addEventListener('click', resetInputs);
+document.getElementById('prevLevel').addEventListener('click', resetInputs);
+
 </script>
 <audio id="decodeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
 
