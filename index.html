@@ -99,6 +99,41 @@ body {
   animation: blueWave 12s ease infinite;
 }
 
+/* 📱 Mobile Mode */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  h1, h2 {
+    font-size: 1.8em;
+    text-align: center;
+  }
+
+  .container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  input, textarea, button, select {
+    font-size: 1.1em;
+    padding: 14px;
+  }
+
+  textarea {
+    height: 140px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  #gameSecret {
+    font-size: 1.4em;
+    text-align: center;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -273,20 +308,33 @@ decodeBtn.addEventListener("click", () => {
 let xp = Number(localStorage.getItem("yahiaXP")) || 0;
 let level = Number(localStorage.getItem("yahiaLevel")) || 1;
 
+let achievements = JSON.parse(localStorage.getItem("yahiaAchievements")) || [];
+
+function unlockAchievement(name) {
+  if (!achievements.includes(name)) {
+    achievements.push(name);
+    localStorage.setItem("yahiaAchievements", JSON.stringify(achievements));
+    alert("🏆 Achievement Unlocked: " + name);
+  }
+}
+
 function updateRank() {
   if (xp >= level * 10) {
     xp = 0;
     level++;
-    alert("🎉 Level up! You are now Level " + level);
+    if (level === 10) unlockAchievement("Level 10 Master 🥇");
   }
   localStorage.setItem("yahiaXP", xp);
   localStorage.setItem("yahiaLevel", level);
-  document.getElementById("rankDisplay").innerText = "🏆 Level " + level + " | XP: " + xp + "/" + (level*10);
+ document.getElementById("rankDisplay").innerText =
+"💙 Level " + level + " | Blue XP: " + xp + "/" + (level * 10);
+
 }
 
 normalInput.addEventListener("input", () => {
   xp++;
   updateRank();
+  unlockAchievement("First Encode 💙");
 });
 
 secretOutput.addEventListener("input", () => {
@@ -356,6 +404,13 @@ function resetInputs() {
 }
 document.getElementById('nextLevel').addEventListener('click', resetInputs);
 document.getElementById('prevLevel').addEventListener('click', resetInputs);
+
+function scrollToOutput() {
+  secretOutput.scrollIntoView({ behavior: "smooth" });
+}
+
+normalInput.addEventListener("input", scrollToOutput);
+decodeBtn.addEventListener("click", scrollToOutput);
 
 </script>
 <audio id="decodeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.wav"></audio>
